@@ -1,0 +1,290 @@
+/* =============================================
+   GLOW & GO TRAVEL — UPGRADE LAYER
+   Paste this at the very BOTTOM of styles.css.
+   It only refines what's already there, so nothing
+   in your HTML or JS needs to change.
+   ============================================= */
+
+:root {
+  --teal-text: #00697f;            /* darker teal: passes contrast for small text */
+  --shadow-soft: 0 1px 2px #10394a14, 0 8px 24px #10394a12;
+  --shadow-lift: 0 2px 4px #10394a14, 0 24px 48px #10394a24;
+  --radius: 18px;
+  --ease: cubic-bezier(.22, .8, .3, 1);
+}
+
+/* ---------- Type and reading comfort ---------- */
+body {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3 { text-wrap: balance; }
+p { text-wrap: pretty; }
+
+.split > div > p,
+.featured-article p,
+.prose p { max-width: 62ch; }
+
+.eyebrow,
+.link-arrow,
+.review-story-link,
+.story-card small,
+.story-card b,
+.review-card small,
+.form-intro { color: var(--teal-text) !important; }
+
+.contact-box .eyebrow { color: #99e4e7 !important; }
+
+html { scroll-padding-top: 110px; }
+
+/* ---------- Header ---------- */
+.site-header { transition: box-shadow .3s var(--ease); }
+
+.nav > a:not(.nav-book) {
+  position: relative;
+  padding-block: 6px;
+}
+
+.nav > a:not(.nav-book)::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--turquoise);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .3s var(--ease);
+}
+
+.nav > a:not(.nav-book):hover::after,
+.nav > a[aria-current="page"]::after { transform: scaleX(1); }
+
+.nav > a.nav-book { transition: background .2s, transform .2s var(--ease); }
+.nav > a.nav-book:hover { background: var(--teal); transform: translateY(-1px); }
+
+.menu-toggle {
+  min-width: 44px;
+  min-height: 44px;
+  border-radius: 12px;
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+  transition: transform .25s var(--ease), background .2s, box-shadow .25s var(--ease);
+}
+.btn-primary { box-shadow: 0 8px 20px #00a7c733; }
+.btn-primary:hover { box-shadow: 0 14px 30px #00a7c755; }
+.btn:active { transform: translateY(0) scale(.98); }
+
+.link-arrow { transition: color .2s, border-color .2s; }
+
+/* ---------- Hero: one gentle entrance, nothing else moves ---------- */
+@keyframes rise {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: none; }
+}
+
+.hero-text > * { animation: rise .8s var(--ease) both; }
+.hero-text > :nth-child(2) { animation-delay: .08s; }
+.hero-text > :nth-child(3) { animation-delay: .16s; }
+.hero-text > :nth-child(4) { animation-delay: .24s; }
+.hero-text > :nth-child(5) { animation-delay: .32s; }
+.hero-visual { animation: rise 1s var(--ease) .15s both; }
+
+.hero-visual > img { box-shadow: var(--shadow-lift); }
+
+/* ---------- Cards ---------- */
+.info-card,
+.review-card {
+  box-shadow: var(--shadow-soft);
+  transition: transform .3s var(--ease), box-shadow .3s var(--ease), border-color .3s;
+}
+
+.info-card:hover,
+.review-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lift);
+  border-color: #b9dde0;
+}
+
+.story-card { box-shadow: var(--shadow-soft); }
+.story-card img { transition: transform .6s var(--ease); }
+a.story-card:hover img { transform: scale(1.04); }
+.story-card { overflow: hidden; }
+
+.review-card blockquote { text-wrap: balance; }
+
+/* ---------- Photos: clearer captions, smoother zoom ---------- */
+.photo,
+.gallery-card {
+  box-shadow: var(--shadow-soft);
+  transition: box-shadow .3s var(--ease), transform .3s var(--ease);
+}
+
+.photo:hover,
+.gallery-card:hover { box-shadow: var(--shadow-lift); }
+
+.photo img,
+.gallery-card img { transition: transform .7s var(--ease); }
+
+.photo > span,
+.gallery-card > span {
+  padding: 36px 20px 18px;
+  background: linear-gradient(transparent, #092f46d9);
+  text-shadow: 0 1px 8px #0006;
+  opacity: .96;
+}
+
+.photo:focus-visible,
+.gallery-card:focus-visible { outline-offset: 3px; }
+
+.filter-bar button {
+  min-height: 44px;
+  transition: background .2s, color .2s, border-color .2s, transform .2s var(--ease);
+}
+.filter-bar button:hover { border-color: var(--teal); transform: translateY(-1px); }
+
+/* ---------- Albums ---------- */
+.photo-album {
+  box-shadow: var(--shadow-soft);
+  transition: box-shadow .3s var(--ease);
+}
+.photo-album:hover { box-shadow: var(--shadow-lift); }
+.photo-album[open] { grid-column: 1 / -1; }
+.photo-album[open] > summary { min-height: 200px; }
+
+.album-cover-text > span {
+  display: inline-block;
+  padding: 7px 14px;
+  border-radius: 99px;
+  background: #ffffff26;
+  backdrop-filter: blur(6px);
+  border: 1px solid #ffffff40;
+}
+
+.album-photo-grid { gap: .8rem; }
+
+/* ---------- Page banners ---------- */
+.page-banner h1 { font-size: clamp(2.8rem, 5.6vw, 5.2rem); }
+.page-banner p { max-width: 58ch; }
+
+/* ---------- Journal and stories: calmer rhythm ---------- */
+.featured-article { box-shadow: var(--shadow-soft); }
+.journal-feature p { max-width: 60ch; }
+
+.story-quote {
+  background: #ffffff99;
+  padding: 16px 20px;
+  border-radius: 0 12px 12px 0;
+}
+
+/* ---------- Forms ---------- */
+.form-card { box-shadow: var(--shadow-lift); }
+
+form input:not([type="checkbox"]):not([type="hidden"]),
+form select,
+form textarea {
+  transition: border-color .2s, box-shadow .2s, background .2s;
+}
+
+form input:hover,
+form select:hover,
+form textarea:hover { border-color: #9fc5cc; }
+
+form input:focus,
+form select:focus,
+form textarea:focus {
+  background: white;
+  box-shadow: 0 0 0 4px #00a7c726;
+}
+
+form input:user-invalid,
+form textarea:user-invalid { border-color: #c4553b; }
+
+form .check { min-height: 44px; }
+form .check input { width: 20px; height: 20px; }
+
+.form-status.visible { border-left: 4px solid var(--turquoise); }
+
+/* ---------- Footer ---------- */
+.site-footer .footer-grid > div > a:not(.brand) {
+  transition: color .2s, transform .2s var(--ease);
+}
+.site-footer .footer-grid > div > a:not(.brand):hover {
+  color: #98e6e9;
+  transform: translateX(3px);
+}
+
+.accreditation-logos img { opacity: .92; transition: opacity .2s; }
+.accreditation-logos img:hover { opacity: 1; }
+
+/* ---------- Sticky button and lightbox ---------- */
+.sticky-cta {
+  bottom: max(18px, env(safe-area-inset-bottom));
+  right: max(17px, env(safe-area-inset-right));
+  min-height: 44px;
+  display: none;
+  align-items: center;
+}
+.sticky-cta.visible { display: inline-flex; }
+
+.lightbox[open] { animation: rise .35s var(--ease) both; }
+.lightbox::backdrop { backdrop-filter: blur(6px); }
+.lightbox-close { box-shadow: var(--shadow-soft); transition: transform .2s var(--ease); }
+.lightbox-close:hover { transform: scale(1.08); }
+
+/* ---------- Mobile refinements ---------- */
+@media (max-width: 950px) {
+  .nav { max-height: calc(100vh - 100px); overflow-y: auto; }
+}
+
+@media (max-width: 700px) {
+  .values-strip { padding: 16px 0; }
+  .info-card { padding: 24px; }
+  .review-card blockquote { font-size: 1.4rem; }
+  .quote-slider { padding: 32px 20px; }
+  .form-card h3 { font-size: 1.7rem; }
+  .contact-box h2 { font-size: 2.6rem; }
+}
+
+/* ---------- Touch devices: no hover lift stuck after tap ---------- */
+@media (hover: none) {
+  .info-card:hover,
+  .review-card:hover,
+  .btn:hover { transform: none; }
+}
+
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .hero-text > *,
+  .hero-visual,
+  .lightbox[open] { animation: none !important; }
+}
+
+/* ---------- Print ---------- */
+@media print {
+  .top-strip, .site-header, .sticky-cta, .site-footer { display: none !important; }
+  .page-banner::after { display: none; }
+}
+
+/* ---------- Lightbox previous / next buttons (used by the new script.js) ---------- */
+.lightbox-nav {
+  position: absolute;
+  top: calc(50% - 40px);
+  z-index: 2;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 50%;
+  background: #ffffffe6;
+  color: var(--navy);
+  font-size: 1.3rem;
+  box-shadow: var(--shadow-soft);
+  transition: transform .2s var(--ease), background .2s;
+}
+.lightbox-nav:hover { background: white; transform: scale(1.08); }
+.lightbox-prev { left: 12px; }
+.lightbox-next { right: 12px; }
+.lightbox-nav[hidden] { display: none; }
